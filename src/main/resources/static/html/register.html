@@ -87,33 +87,33 @@
 				return false;
 			}
 			if(otpCode == null || otpCode == ""){
-				alert("密码不能为空");
+				alert("验证码不能为空");
 				return false;
 			}
 
 			$.ajax({
 				type:"POST",
-				contentType:"application/x-www-form-urlencoded",
+				contentType:"application/json;charset=UTF-8",
 				url:"http://localhost:8090/user/register",
-				data:{
+				data:JSON.stringify({
 					"telphone":$("#telphone").val(),
 					"password":password,
 					"age":age,
 					"gender":gender,
 					"otpCode":otpCode,
 					"name":name
-				},
+				}),
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
+					if(data.code == 200){
 						alert("注册成功");
-						window.location.href="login.html";
+						window.location.href="/html/login.html";
 					}else{
-						alert("注册失败，原因为"+data.data.errMsg);
+						alert("注册失败，原因为"+data.data);
 					}
 				},
 				error:function(data){
-					alert("注册失败，原因为"+data.responseText);
+					alert("注册失败，原因为"+data.msg);
 				}
 			});
 			return false;

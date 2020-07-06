@@ -49,15 +49,15 @@
 				},
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
-						alert("otp已经发送到了您的手机上，请注意查收");
-						window.location.href="register.html";
+					if(data.code == 200){
+						alert("假装验证码已经发送到了您的手机上了,其实验证码是" + data.data);
+						window.location.href="/html/register.html";
 					}else{
-						alert("otp发送失败，原因为"+data.data.errMsg);
+						alert("otp发送失败，原因为"+data.msg);
 					}
 				},
 				error:function(data){
-					alert("otp发送失败，原因为"+data.responseText);
+					alert("otp发送失败，原因为"+data.msg);
 				}
 			});
 			return false;

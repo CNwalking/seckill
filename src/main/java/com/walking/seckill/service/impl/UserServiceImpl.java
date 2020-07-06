@@ -70,9 +70,9 @@ public class UserServiceImpl implements UserService {
         if(userInfo == null){
             throw new APIException(ResultCode.USER_NOT_EXIST);
         }
-        UserPassword password = userPasswordMapper.selectByPrimaryKey(userInfo.getId());
+        UserPassword password = userPasswordMapper.selectByUserId(userInfo.getId());
         //比对用户信息内加密的密码是否和传输进来的密码相匹配
-        if(!StringUtils.equals(encryptPassword,password.getEncrptPassword())){
+        if (!StringUtils.equals(encryptPassword, password.getEncrptPassword())) {
             throw new APIException(ResultCode.PASSWORD_ERROR);
         }
         return userInfo;

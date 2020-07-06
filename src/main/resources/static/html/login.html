@@ -69,15 +69,15 @@
 				},
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
+					if(data.code==200){
 						alert("登陆成功");
-						window.location.href="listitem.html";
+						window.location.href="/html/listitem.html";
 					}else{
-						alert("登陆失败，原因为"+data.data.errMsg);
+						alert("登陆失败，原因为"+data.data);
 					}
 				},
 				error:function(data){
-					alert("登陆失败，原因为"+data.responseText);
+					alert("登陆失败，原因为"+data.msg);
 				}
 			});
 			return false;

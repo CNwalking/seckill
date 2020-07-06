@@ -16,8 +16,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  * @DateTime: 2020/4/9 22:11
  * @Description:
  */
-@RestControllerAdvice(basePackages = {"com.walking.project.controller"})
+@RestControllerAdvice(basePackages = {"com.walking.seckill.controller"})
 public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
+
     @Override
     public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> aClass) {
         // 如果接口返回的类型本身就是ResultVO那就没有必要进行额外的操作，返回false
@@ -27,15 +28,15 @@ public class ResponseControllerAdvice implements ResponseBodyAdvice<Object> {
     @Override
     public Object beforeBodyWrite(Object data, MethodParameter returnType, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest request, ServerHttpResponse response) {
         // String类型不能直接包装，所以要进行些特别的处理
-        if (returnType.getGenericParameterType().equals(String.class)) {
-            ObjectMapper objectMapper = new ObjectMapper();
-            try {
-                // 将数据包装在Result里后，再转换为json字符串响应给前端
-                return objectMapper.writeValueAsString(new Result<>(data));
-            } catch (JsonProcessingException e) {
-                throw new APIException("返回String类型错误");
-            }
-        }
+//        if (returnType.getGenericParameterType().equals(String.class)) {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            try {
+//                // 将数据包装在Result里后，再转换为json字符串响应给前端
+//                return objectMapper.writeValueAsString(new Result<>(data));
+//            } catch (JsonProcessingException e) {
+//                throw new APIException("返回String类型错误");
+//            }
+//        }
         // 将原本的数据包装在ResultVO里
         return new Result<>(data);
     }

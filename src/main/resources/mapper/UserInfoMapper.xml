@@ -26,7 +26,7 @@
     insert into user_info (name, gender, age, 
       telphone, register_mode, third_party_id
       )
-    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=TINYINT}, #{age,jdbcType=INTEGER}, 
+    values (#{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{age,jdbcType=INTEGER},
       #{telphone,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, #{thirdPartyId,jdbcType=VARCHAR}
       )
   </insert>
@@ -60,7 +60,7 @@
         #{name,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        #{gender,jdbcType=TINYINT},
+        #{gender,jdbcType=INTEGER},
       </if>
       <if test="age != null">
         #{age,jdbcType=INTEGER},
@@ -83,7 +83,7 @@
         name = #{name,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        gender = #{gender,jdbcType=TINYINT},
+        gender = #{gender,jdbcType=INTEGER},
       </if>
       <if test="age != null">
         age = #{age,jdbcType=INTEGER},
@@ -103,7 +103,7 @@
   <update id="updateByPrimaryKey" parameterType="com.walking.seckill.dataobject.entity.UserInfo">
     update user_info
     set name = #{name,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=TINYINT},
+      gender = #{gender,jdbcType=INTEGER},
       age = #{age,jdbcType=INTEGER},
       telphone = #{telphone,jdbcType=VARCHAR},
       register_mode = #{registerMode,jdbcType=VARCHAR},

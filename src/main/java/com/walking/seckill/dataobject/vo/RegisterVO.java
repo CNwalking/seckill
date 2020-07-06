@@ -29,7 +29,7 @@ public class RegisterVO {
     String name;
 
     @ApiParam(name = "gender", value = "性别")
-    Integer gender;
+    String gender;
 
     @ApiParam(name = "age", value = "年龄")
     @NotNull(message = "年龄不能不填写")

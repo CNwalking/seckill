@@ -31,11 +31,11 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.walking.seckill.dataobject.entity.OrderInfo">
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into order_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="userId != null">
         user_id,
       </if>
@@ -56,6 +56,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>

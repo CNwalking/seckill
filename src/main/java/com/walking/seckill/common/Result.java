@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 import lombok.Getter;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Getter;
  * @DateTime: 2020/4/9 22:03
  * @Description:统一API响应结果封装
  */
-@Getter
+@Data
 @ApiModel
 public class Result<T> {
 
@@ -21,6 +22,9 @@ public class Result<T> {
     private String msg;
     @ApiModelProperty(value = "响应数据")
     private T data;
+
+    public Result() {
+    }
 
     public Result(T data) {
         this(ResultCode.SUCCESS, data);
@@ -34,6 +38,19 @@ public class Result<T> {
 
     public static Result defaultSuccess() {
         Result result = new Result(ResultCode.SUCCESS, null);
+        return result;
+    }
+
+    public static Result defaultFailed() {
+        Result result = new Result(ResultCode.FAILED, null);
+        return result;
+    }
+
+    public static Result create(Object data, Integer code, String msg) {
+        Result result = new Result();
+        result.setData(data);
+        result.setCode(code);
+        result.setMsg(msg);
         return result;
     }
 

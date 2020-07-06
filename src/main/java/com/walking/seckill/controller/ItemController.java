@@ -50,8 +50,8 @@ public class ItemController {
         return new Result(convertVoFromDto(returnDto));
     }
 
-    @ApiOperation(value = "拿商品信息", notes = "拿商品信息")
-    @PostMapping("/get")
+    @ApiOperation(value = "拿商品详情", notes = "拿商品详情")
+    @GetMapping("/get")
     public Result getItem(@RequestParam(name = "id") Integer id) {
 
         ItemDTO itemDTO = itemService.getItemById(id);
@@ -62,8 +62,8 @@ public class ItemController {
     }
 
 
-    @ApiOperation(value = "拿商品信息", notes = "拿商品信息")
-    @GetMapping("/get")
+    @ApiOperation(value = "拿商品信息list", notes = "拿商品信息list")
+    @GetMapping("/list")
     public List<ItemVO> listItem() {
 
         List<ItemDTO> itemModelList = itemService.listItem();

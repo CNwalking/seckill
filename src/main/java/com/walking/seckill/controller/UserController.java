@@ -12,7 +12,7 @@ import com.walking.seckill.service.UserService;
 import com.walking.seckill.utils.MD5Encrypt;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import com.walking.seckill.common.APIException;
@@ -56,23 +56,22 @@ public class UserController {
         //将OTP验证码同对应用户的手机号关联，使用httpsession的方式绑定他的手机号与OTPCODE
         httpServletRequest.getSession().setAttribute(telphone,otpCode);
         //将OTP验证码通过短信通道发送给用户,省略
-        System.out.println("telphone = " + telphone + " & otpCode = "+otpCode);
+        log.info("telphone = " + telphone + " & otpCode = "+otpCode);
         return otpCode;
     }
 
     @ApiOperation(value = "注册", notes = "注册")
     @PostMapping("/register")
-    public Result register(@RequestBody @Valid RegisterVO vo,
-            HttpServletRequest httpServletRequest) {
+    public Result register(@RequestBody @Valid RegisterVO vo, HttpServletRequest httpServletRequest) {
         //验证手机号和对应的otpCode相符合
         String inSessionOtpCode = (String) httpServletRequest.getSession().getAttribute(vo.getTelphone());
-        if (!com.alibaba.druid.util.StringUtils.equals(vo.getOtpCode(), inSessionOtpCode)) {
+        if (!StringUtils.equals(vo.getOtpCode(), inSessionOtpCode)) {
             throw new APIException(ResultCode.FAILED.getCode(), "短信验证码不符合");
         }
         //用户的注册流程
         RegisterDTO dto = new RegisterDTO();
         dto.setName(vo.getName());
-        dto.setGender(new Byte(String.valueOf(vo.getGender().intValue())));
+        dto.setGender(vo.getGender().equals("男") ? 1 : 0);
         dto.setAge(vo.getAge());
         dto.setTelphone(vo.getTelphone());
         dto.setRegisterMode("byphone");
@@ -102,9 +101,8 @@ public class UserController {
             @ApiParam(name = "password", value = "密码")@RequestParam(name="password")String password,
             HttpServletRequest httpServletRequest) {
         //入参校验
-        if(org.apache.commons.lang3.StringUtils.isEmpty(telphone)||
-                StringUtils.isEmpty(password)){
-            throw new APIException(ResultCode.VALIDATE_FAILED);
+        if (StringUtils.isEmpty(telphone) || StringUtils.isEmpty(password)) {
+            throw new APIException(ResultCode.PARAM_ERROR_OR_EMPTY);
         }
 
         //用户登陆服务,用来校验用户登陆是否合法

@@ -14,7 +14,7 @@ public class RegisterDTO {
 
     private String name;
 
-    private Byte gender;
+    private Integer gender;
 
     private Integer age;
 

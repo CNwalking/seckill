@@ -96,18 +96,18 @@ var g_itemVO = {};
 				},
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
+					if(data.code == 200){
 						alert("下单成功");
 						window.location.reload();
 					}else{
-						alert("下单失败，原因为"+data.data.errMsg);
-						if(data.data.errCode == 20003){
-							window.location.href="login.html";
+						alert("下单失败，原因为"+data.data);
+						if(data.code == 400){
+							window.location.href="/html/login.html";
 						}
 					}
 				},
 				error:function(data){
-					alert("下单失败，原因为"+data.responseText);
+					alert("失败 "+data.msg);
 				}
 			});
 
@@ -122,16 +122,16 @@ var g_itemVO = {};
 				},
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
+					if(data.code == 200){
 						g_itemVO = data.data;
 						reloadDom();
 						setInterval(reloadDom,1000);
 					}else{
-						alert("获取信息失败，原因为"+data.data.errMsg);
+						alert("获取信息失败，原因为"+data.msg);
 					}
 				},
 				error:function(data){
-					alert("获取信息失败，原因为"+data.responseText);
+					alert("获取信息失败，原因为"+data.msg);
 				}
 			});
 

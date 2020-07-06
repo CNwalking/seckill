@@ -1,21 +1,23 @@
 package com.walking.seckill.controller;
 
+import static com.walking.seckill.common.ProjectConstant.IS_LOGIN;
+import static com.walking.seckill.common.ProjectConstant.LOGIN_USER;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import com.walking.seckill.common.APIException;
 import com.walking.seckill.common.Result;
 import com.walking.seckill.common.ResultCode;
 import com.walking.seckill.dataobject.entity.UserInfo;
 import com.walking.seckill.service.OrderService;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import java.util.Random;
-
-import static com.walking.seckill.common.ProjectConstant.*;
 
 /**
  * @Author: CNwalking
@@ -43,7 +45,6 @@ public class OrderController {
         if(isLogin == null || !isLogin){
             throw new APIException(ResultCode.USER_NOT_LOGIN);
         }
-        
         //获取用户的登陆信息
         UserInfo userInfo = (UserInfo) httpServletRequest.getSession().getAttribute(LOGIN_USER);
 

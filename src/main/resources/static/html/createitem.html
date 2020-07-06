@@ -101,14 +101,14 @@
 				},
 				xhrFields:{withCredentials:true},
 				success:function(data){
-					if(data.status == "success"){
+					if(data.code == 200){
 						alert("创建成功");
 					}else{
-						alert("创建失败，原因为"+data.data.errMsg);
+						alert("创建失败，原因为"+data.data);
 					}
 				},
 				error:function(data){
-					alert("创建失败，原因为"+data.responseText);
+					alert("创建失败，原因为"+data.msg);
 				}
 			});
 			return false;
