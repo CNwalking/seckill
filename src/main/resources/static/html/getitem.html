@@ -84,11 +84,13 @@ var g_itemVO = {};
 
 
 	jQuery(document).ready(function(){
+		var hostAndPort=document.location.host;
+		var hostAddress = hostAndPort.substr(0,hostAndPort.length - 4);
 		$("#createorder").on("click",function(){
 			$.ajax({
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded",
-				url:"http://localhost:8090/order/createorder",
+				url:"http://"+hostAddress+"8090/order/createorder",
 				data:{
 					"itemId":g_itemVO.id,
 					"amount":1,
@@ -114,26 +116,26 @@ var g_itemVO = {};
 		});
 
 		//获取商品详情
-			$.ajax({
-				type:"GET",
-				url:"http://localhost:8090/item/get",
-				data:{
-					"id":getParam("id"),
-				},
-				xhrFields:{withCredentials:true},
-				success:function(data){
-					if(data.code == 200){
-						g_itemVO = data.data;
-						reloadDom();
-						setInterval(reloadDom,1000);
-					}else{
-						alert("获取信息失败，原因为"+data.msg);
-					}
-				},
-				error:function(data){
+		$.ajax({
+			type:"GET",
+			url:"http://"+hostAddress+"8090/item/get",
+			data:{
+				"id":getParam("id"),
+			},
+			xhrFields:{withCredentials:true},
+			success:function(data){
+				if(data.code == 200){
+					g_itemVO = data.data;
+					reloadDom();
+					setInterval(reloadDom,1000);
+				}else{
 					alert("获取信息失败，原因为"+data.msg);
 				}
-			});
+			},
+			error:function(data){
+				alert("获取信息失败，原因为"+data.msg);
+			}
+		});
 
 
 	});

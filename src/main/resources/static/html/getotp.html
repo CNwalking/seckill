@@ -35,6 +35,8 @@
 
 		//绑定otp的click时间用于向后端发送获取手机验证码的请求
 		$("#getotp").on("click",function(){
+			var hostAndPort=document.location.host;
+			var hostAddress = hostAndPort.substr(0,hostAndPort.length - 4);
 			var telphone = $("#telphone").val();
 			if(telphone == null || telphone == ""){
 				alert("手机号不能为空");
@@ -43,7 +45,7 @@
 			$.ajax({
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded",
-				url:"http://localhost:8090/user/getotp",
+				url:"http://"+hostAddress+"8090/user/getotp",
 				data:{
 					"telphone":$("#telphone").val(),
 				},

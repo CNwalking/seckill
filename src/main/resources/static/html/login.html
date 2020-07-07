@@ -57,12 +57,13 @@
 				alert("密码不能为空");
 				return false;
 			}
-	
-
+			var hostAndPort=document.location.host;
+			var hostAddress = hostAndPort.substr(0,hostAndPort.length - 4);
+			console.log(hostAddress);
 			$.ajax({
 				type:"POST",
 				contentType:"application/x-www-form-urlencoded",
-				url:"http://localhost:8090/user/login",
+				url:"http://"+hostAddress+"8090/user/login",
 				data:{
 					"telphone":$("#telphone").val(),
 					"password":password

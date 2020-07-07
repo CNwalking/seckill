@@ -90,11 +90,12 @@
 				alert("验证码不能为空");
 				return false;
 			}
-
+			var hostAndPort=document.location.host;
+			var hostAddress = hostAndPort.substr(0,hostAndPort.length - 4);
 			$.ajax({
 				type:"POST",
 				contentType:"application/json;charset=UTF-8",
-				url:"http://localhost:8090/user/register",
+				url:"http://"+hostAddress+"8090/user/register",
 				data:JSON.stringify({
 					"telphone":$("#telphone").val(),
 					"password":password,

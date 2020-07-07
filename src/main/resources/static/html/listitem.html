@@ -19,12 +19,15 @@
 
 
 <script>
+
 	//定义全局商品数组信息
 	var g_itemList = [];
 	jQuery(document).ready(function(){
+		var hostAndPort=document.location.host;
+		var hostAddress = hostAndPort.substr(0,hostAndPort.length - 4);
 			$.ajax({
 				type:"GET",
-				url:"http://localhost:8090/item/list",
+				url:"http://"+hostAddress+"8090/item/list",
 				xhrFields:{withCredentials:true},
 				success:function(data){
 					if(data.code == 200){
